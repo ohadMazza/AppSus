@@ -1,6 +1,6 @@
 // note service
-import { utilService } from "../../..util.service.js"
-import { StorageService } from "../../../services/async-storage.service.js"
+import { utilService } from "../../../services/util.service.js"
+import { asyncStorageService } from "../../../services/async-storage.service.js"
 import { storageService } from "../../../services/storage.service.js"
 
 const NOTE_KEY = 'noteDB'
@@ -17,7 +17,7 @@ export const noteService = {
 }
 
 function query() {
-    return StorageService.query(NOTE_KEY)
+    return asyncStorageService.query(NOTE_KEY)
         .then(notes => {
             // if (filterBy.txt) {
             //     const regExp = new RegExp(filterBy.txt, 'i')
@@ -32,18 +32,26 @@ function query() {
 }
 
 function get(noteId) {
-    return StorageService.get(NOTE_KEY, noteId)
+    return asyncStorageService.get(NOTE_KEY, noteId)
+}
+
+
+function addNote(note) {
+    let notes = _loadNotesFromStorage()
+    note = [...notes, note]
+    _saveNotesToStorage(notes)
+    return note
 }
 
 function remove(noteId) {
-    return StorageService.remove(NOTE_KEY, noteId)
+    return asyncStorageService.remove(NOTE_KEY, noteId)
 }
 
 function save(note) {
     if (note.id) {
-        return StorageService.put(NOTE_KEY, note)
+        return asyncStorageService.put(NOTE_KEY, note)
     } else {
-        return StorageService.post(NOTE_KEY, note)
+        return asyncStorageService.post(NOTE_KEY, note)
     }
 }
 
@@ -92,17 +100,26 @@ function _createNotes() {
     let notes = storageService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = []
-        notes.push(_createNote('Fullstack Me Baby!'))
-        notes.push(_createNote())
-        notes.push(_createNote())
-        notes.push(_createNote())
-        notes.push(_createNote())
+        // notes.push(_createNote('Fullstack Me Baby!'))
+        // notes.push(_createNote())
+        // notes.push(_createNote())
+        // notes.push(_createNote())
+        // notes.push(_createNote())
         storageService.saveToStorage(NOTE_KEY, notes)
     }
 }
 
 function _createNote(txt) {
-    const note = getEmptyNote(txt)
+    let note = getEmptyNote(txt)
     note.id = utilService.makeId()
+    console.log(note)
     return note
+}
+
+function _saveNotesToStorage(notes) {
+    storageService.saveToStorage(NOTE_KEY, notes)
+}
+
+function _loadNotesFromStorage() {
+    return storageService.loadFromStorage(NOTE_KEY)
 }

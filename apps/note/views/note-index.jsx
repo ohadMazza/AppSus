@@ -4,7 +4,7 @@ const { useEffect, useState } = React
 
 // import { CarFilter } from "../cmps/car-filter.jsx"
 import { NoteList } from "../cmps/note-list.jsx"
-import { noteService } from "../../note/services/note.service.js"
+import { noteService } from "../services/note.service.js"
 // import { showSuccessMsg, showErrorMsg } from "../services/event-bus.service.js"
 // import { CarDetails } from "./car-details.jsx"
 
