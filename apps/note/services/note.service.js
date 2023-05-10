@@ -33,6 +33,7 @@ function query() {
 
 function get(noteId) {
     return asyncStorageService.get(NOTE_KEY, noteId)
+<<<<<<< HEAD
 }
 
 
@@ -41,6 +42,8 @@ function addNote(note) {
     note = [...notes, note]
     _saveNotesToStorage(notes)
     return note
+=======
+>>>>>>> cc05bcdd011273ea718f04b77df3364b534271fa
 }
 
 function remove(noteId) {
