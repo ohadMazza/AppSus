@@ -1,6 +1,6 @@
 // note service
-import { utilService } from "../../..util.service.js"
-import { StorageService } from "../../../services/async-storage.service.js"
+import { utilService } from "../../../services/util.service.js"
+import { asyncStorageService } from "../../../services/async-storage.service.js"
 import { storageService } from "../../../services/storage.service.js"
 
 const NOTE_KEY = 'noteDB'
@@ -17,7 +17,7 @@ export const noteService = {
 }
 
 function query() {
-    return StorageService.query(NOTE_KEY)
+    return asyncStorageService.query(NOTE_KEY)
         .then(notes => {
             // if (filterBy.txt) {
             //     const regExp = new RegExp(filterBy.txt, 'i')
@@ -32,18 +32,18 @@ function query() {
 }
 
 function get(noteId) {
-    return StorageService.get(NOTE_KEY, noteId)
+    return asyncStorageService.get(NOTE_KEY, noteId)
 }
 
 function remove(noteId) {
-    return StorageService.remove(NOTE_KEY, noteId)
+    return asyncStorageService.remove(NOTE_KEY, noteId)
 }
 
 function save(note) {
     if (note.id) {
-        return StorageService.put(NOTE_KEY, note)
+        return asyncStorageService.put(NOTE_KEY, note)
     } else {
-        return StorageService.post(NOTE_KEY, note)
+        return asyncStorageService.post(NOTE_KEY, note)
     }
 }
 

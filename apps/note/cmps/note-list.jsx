@@ -1,7 +1,7 @@
 const { Link } = ReactRouterDOM
 
 
-import { NotePreview } from "../cmps/note-preview"
+import { NotePreview } from "./note-preview.jsx"
 
 export function NoteList({ notes, onRemoveNote }) {
     return (
@@ -10,7 +10,7 @@ export function NoteList({ notes, onRemoveNote }) {
                 <li key={note.id}>
                     <NotePreview note={note} />
                     <section>
-                        <button onClick={() => onRemoveNote(Note.id)} >Remove</button>
+                        <button onClick={() => onRemoveNote(note.id)} >Remove</button>
                         {/* <button><Link to={`/note/${note.id}`} >Details</Link></button> */}
                         {/* <button><Link to={`/note/edit/${note.id}`} >Edit</Link></button> */}
                     </section>
