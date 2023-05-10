@@ -14,10 +14,11 @@ export const mailService = {
     // getDefaultFilter,
 }
 
-function query(filterBy = {}) {
+function query() {
     // console.log('filterBy service:', filterBy)
     return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
+            console.log('hereeee', mails)
             // if (filterBy.txt) {
             //     const regExp = new RegExp(filterBy.txt, 'i')
             //     mails = mails.filter(mail => regExp.test(mail.txt))
@@ -26,7 +27,7 @@ function query(filterBy = {}) {
             // if (filterBy.minSpeed) {
             //     mails = mails.filter(mail => mails.maxSpeed >= filterBy.minSpeed)
             // }
-            // return mails
+            return mails
         })
 }
 
@@ -64,7 +65,7 @@ function _createMails() {
                 subject: 'Spring Sale is Here',
                 body: 'Save 40% on amazing products! \nSpring has finally arrived with plenty of great deals! Save 40% on selected instruments, loops, SpectraLayers, Cubasis and more!',
                 isRead: false,
-                sentAt: 1551133930594,
+                sentAt: 1551133930594 - 30000000,
                 removedAt: null,
                 from: 'info@news.steinberg.net',
                 to: 'user@appsus.com',
@@ -75,7 +76,7 @@ function _createMails() {
                 subject: 'You sent an automatic payment to East West Communications, Inc.',
                 body: 'Thank you for your payment to East West Communications, Inc.\nHere are the details about your automatic payment for EastWest ComposerCloud Subscription.',
                 isRead: false,
-                sentAt: 1551133930594,
+                sentAt: 1551133930594 - 30000000 - 300000000,
                 removedAt: null,
                 from: 'service@paypal.co.il',
                 to: 'user@appsus.com',
@@ -85,7 +86,7 @@ function _createMails() {
                 subject: '4 days left to save 50%!',
                 body: 'Our Birthday Sale comes to an end in just 4 days! Don’t miss out on your limited chance to save 50% on your next plugin',
                 isRead: false,
-                sentAt: 1551133930594,
+                sentAt: 1551133930594 - 60000000 - 30000000 - 30000000,
                 removedAt: null,
                 from: 'network@neuraldsp.com',
                 to: 'user@appsus.com',

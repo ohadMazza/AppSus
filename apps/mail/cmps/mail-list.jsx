@@ -5,7 +5,7 @@ import { MailPriview } from "./mail-priview.jsx"
 
 export function MailList({ mails }) {
     return (
-        <table border="1">
+        <table >
             <tbody>
                 {mails.map(mail => <MailPriview key={mail.id} mail={mail} />)}
             </tbody>
