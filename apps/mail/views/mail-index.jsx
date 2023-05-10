@@ -1,5 +1,21 @@
+import { mailService } from "../services/mail.service.js"
+import { MailList } from "../cmps/mail-list.jsx"
+
+
 
 export function MailIndex() {
-    return <div>mail app</div>
+    // const [mails, setMails] = useState([])
+    mailService.check()
+
+
+
+
+
+    return (
+        <section >
+            <MailList />
+        </section>
+
+    )
 }
 
