@@ -36,6 +36,7 @@ export function MailIndex() {
 
     return (
         <section >
+            <h1>delivery 21.00</h1>
             <MailList />
         </section>
 
