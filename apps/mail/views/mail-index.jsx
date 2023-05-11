@@ -35,10 +35,45 @@ export function MailIndex() {
     // }
 
     return (
-        <section >
-            <MailList mails={mails} />
-        </section>
+        <section className="mail-index">
 
+            <div className="mail-logo">
+                <img src="assets/img/logo/mister-mail-logo.png"></img>
+            </div>
+            <div class="search-container">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search in mail" />
+            </div>
+
+            <button className="compose-btn">Compose</button>
+            <div className="filters">Filters</div>
+            <div className="labels">
+                <div>
+                    <i class="fa-solid fa-inbox"></i>
+                    <button>Inbox</button>
+                    <span>456</span>
+                </div>   <div>
+                    <i class="fa-regular fa-paper-plane"></i>
+                    <button>Sent</button>
+                    <span>5</span>
+                </div>
+                <div>
+                    <i class="fa-regular fa-file-lines"></i>
+                    <button>Draft</button>
+                    <span>12</span>
+                </div>
+                <div>
+                    <i class="fa-regular fa-trash-can"></i>
+                    <button>Trash</button>
+                    <span>13</span>
+                </div>
+            </div>
+            <section className="mail-list">
+                <MailList mails={mails} />
+
+            </section>
+
+        </section>
     )
 }
 
