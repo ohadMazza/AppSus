@@ -1,30 +1,23 @@
 const { useState, useEffect } = React
 
-import { notes } from '../services/note.service.js'
+import { noteService } from '../services/note.service.js'
 
-export function noteAdd({ onSaveNote }) {
-    const inputRef = React.createRef()
+export function NoteAdd() {
+
 
     const [note, setNote] = useState({
-        id: '',
-        createdAt: 0,
-        type: 'NoteTxt',
-        isPinned: false,
-        style: {
-            backgroundColor: '#00d'
-        },
-        info: {
-            txt: ''
-        }
+
     })
 
-    useEffect(() => {
-        inputRef.current.focus()
-    }, [])
+    // useEffect(() => {
+
+    // }, [])
 
     function onAddNote(ev) {
         ev.preventDefault()
-        onSaveNote(note)
+        noteService.addNote(note)
+        return
+
     }
 
     function handleChange(ev) {
@@ -32,22 +25,28 @@ export function noteAdd({ onSaveNote }) {
         setNote((prevNote) => ({ ...prevNote, [field]: value }))
     }
 
-    const { id, createdAt, type, isPinned, style, backgroundColor, info } = note
+    // const { id, createdAt, type, isPinned, style, backgroundColor, info } = note
 
-    return (
-        <section className='note-add'>
-            <button onClick={onAddNote()}>Add note</button>
+    // return (
+    //     <section className='note-add'>
+    //         <button onClick={onAddNote}>Add note</button>
+    //         <textarea
+    //             name='txt'
+    //             cols='30'
+    //             rows='10'
+    //             value=''
+    //             onChange={handleChange}
+    //         ></textarea>
 
-
-            <button
+    {/* <button
                 className='btn-toggle-modal'
                 onClick={() => onToggleNoteModal()}
             >
                 x
-            </button>
+            </button> */}
 
 
-            {/* <label htmlFor='by-date'>Date:</label>
+    {/* <label htmlFor='by-date'>Date:</label>
                 <input
                     type='date'
                     id='by-date'
@@ -55,17 +54,6 @@ export function noteAdd({ onSaveNote }) {
                     value={date}
                     onChange={handleChange}
                 /> */}
-
-            <textarea
-                name='txt'
-                cols='30'
-                rows='10'
-                value={txt}
-                onChange={handleChange}
-            ></textarea>
-
-
-
-        </section >
-    )
+    //     </section >
+    // )
 }

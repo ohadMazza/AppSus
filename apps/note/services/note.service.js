@@ -12,6 +12,7 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
+    addNote,
     // getDefaultFilter,
     // getNextNoteId
 }
@@ -64,7 +65,7 @@ function save(note) {
 //         })
 // }
 
-function getEmptyNote(txt) {
+function getEmptyNote() {
     return {
         id: '',
         createdAt: 0,
@@ -74,7 +75,7 @@ function getEmptyNote(txt) {
             backgroundColor: '#00d'
         },
         info: {
-            txt: txt
+            txt: ''
         }
     }
 }
@@ -100,7 +101,7 @@ function _createNotes() {
     let notes = storageService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = []
-        // notes.push(_createNote('Fullstack Me Baby!'))
+        notes.push(_createNote('Fullstack Me Baby!'))
         // notes.push(_createNote())
         // notes.push(_createNote())
         // notes.push(_createNote())

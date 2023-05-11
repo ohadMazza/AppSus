@@ -1,7 +1,7 @@
 const { Fragment, useState } = React
 const { Link } = ReactRouterDOM
 
-export function MailPriview({ mail }) {
+export function MailPreview({ mail }) {
     // const [isExpanded, setIsExpanded] = useState(false)
     const timeStamp = mail.sentAt
 
