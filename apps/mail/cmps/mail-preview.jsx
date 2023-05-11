@@ -1,32 +1,30 @@
 const { Fragment, useState } = React
 const { Link } = ReactRouterDOM
 
-export function MailPriview({ mail }) {
+export function MailPreview({ mail }) {
     // const [isExpanded, setIsExpanded] = useState(false)
     const timeStamp = mail.sentAt
 
-    const timeStampSeconds = Math.floor(timeStamp / 1000)
-    const date = new Date(timeStampSeconds * 1000)
+    function formatDate(timeStamp) {
+        const date = new Date(timeStamp);
+        const year = date.getFullYear();
+        const month = date.toLocaleString('default', { month: 'long' });
+        const day = date.getDate();
+        const today = new Date();
 
-    //get the time no seconds//
-    let options = { hour12: true, hour: 'numeric', minute: 'numeric' }
-    const formattedTime = date.toLocaleTimeString("en-us", options)
-    console.log('time:new ', formattedTime)
-
-
-
-    const options2 = { month: 'long', day: 'numeric' }
-    const formattedDate = date.toLocaleString("en-us", options2)
-    console.log('date new: ', formattedDate)
-
-
-
-    // const formattedDate = date.toLocaleDateString("en-us")
-    // console.log('date: ', formattedDate)
-    // const formattedTime = date.toLocaleTimeString("en-us")
-    // console.log('time: ', formattedTime)
-
-
+        if (year !== today.getFullYear()) {
+            return `${date.getMonth() + 1}/${day}/${year}`;
+        } else if (timeStamp >= today - 86400000 && timeStamp <= today) {
+            const hours = date.getHours() % 12 || 12;
+            const minutes = date.getMinutes();
+            const ampm = date.getHours() >= 12 ? ' PM' : ' AM';
+            return `${hours}:${minutes.toString().padStart(2, '0')}${ampm}`;
+        } else if (timeStamp >= today - 172800000 && timeStamp < today - 86400000) {
+            return 'Yesterday';
+        } else {
+            return `${month} ${day}`;
+        }
+    }
 
 
 
@@ -35,7 +33,7 @@ export function MailPriview({ mail }) {
             <td><i className="fa-regular fa-star"></i></td>
             <td>{mail.from}</td>
             <td> {mail.subject} </td>
-            <td> {formattedDate} </td>
+            <td> {formatDate(timeStamp)} </td>
         </tr>
     )
 }
