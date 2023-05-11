@@ -11,7 +11,7 @@ export const mailService = {
     remove,
     save,
     // getEmptyCar,
-    // getDefaultFilter,
+    getDefaultFilter,
 }
 
 function query() {
@@ -36,7 +36,7 @@ function get(mailId) {
 }
 
 function remove(mailId) {
-    return storageService.remove(MAIL_KEY, mailId)
+    return asyncStorageService.remove(MAIL_KEY, mailId)
 }
 
 function save(mail) {
@@ -51,9 +51,9 @@ function save(mail) {
 //     return { id: '', vendor, maxSpeed }
 // }
 
-// function getDefaultFilter() {
-//     return { txt: '', minSpeed: '' }
-// }
+function getDefaultFilter() {
+    return { txt: '' }
+}
 
 function _createMails() {
     let mails = storageService.loadFromStorage(MAIL_KEY)

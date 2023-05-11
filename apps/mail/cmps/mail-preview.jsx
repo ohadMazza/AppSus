@@ -1,39 +1,51 @@
 const { Fragment, useState } = React
 const { Link } = ReactRouterDOM
 
-export function MailPreview({ mail }) {
+import { utilService } from "../../../services/util.service.js"
+
+
+export function MailPreview({ mail, onDeleteMail }) {
+    const [hovered, setHovered] = useState(false)
+
+    const handleMouseEnter = () => {
+        setHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setHovered(false);
+    };
+
+    // const onDeleteMail = () => {
+    //     console.log('delete mail')
+    //     // Handle delete logic here
+    // };
+
     // const [isExpanded, setIsExpanded] = useState(false)
     const timeStamp = mail.sentAt
+    const sentAt = utilService.formatDate(timeStamp)
 
-    function formatDate(timeStamp) {
-        const date = new Date(timeStamp);
-        const year = date.getFullYear();
-        const month = date.toLocaleString('default', { month: 'long' });
-        const day = date.getDate();
-        const today = new Date();
 
-        if (year !== today.getFullYear()) {
-            return `${date.getMonth() + 1}/${day}/${year}`;
-        } else if (timeStamp >= today - 86400000 && timeStamp <= today) {
-            const hours = date.getHours() % 12 || 12;
-            const minutes = date.getMinutes();
-            const ampm = date.getHours() >= 12 ? ' PM' : ' AM';
-            return `${hours}:${minutes.toString().padStart(2, '0')}${ampm}`;
-        } else if (timeStamp >= today - 172800000 && timeStamp < today - 86400000) {
-            return 'Yesterday';
-        } else {
-            return `${month} ${day}`;
-        }
-    }
+
 
 
 
     return (
-        <tr onClick={() => setIsExpanded(prevIsExpanded => !prevIsExpanded)}>
+        <tr className="border-bottom" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
             <td><i className="fa-regular fa-star"></i></td>
             <td>{mail.from}</td>
             <td> {mail.subject} </td>
-            <td> {formatDate(timeStamp)} </td>
+            {hovered ? (
+                <td>
+                    <i className="fa-regular fa-envelope-open"></i>
+                    <i
+                        className="fa-regular fa-trash-can"
+                        onClick={() => onDeleteMail(mail.id)}
+                    ></i>
+                </td>
+            ) : (
+                <td>{sentAt}</td>
+            )}
         </tr>
     )
 }
+

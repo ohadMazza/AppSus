@@ -5,9 +5,37 @@
 
  .mail-index {
      display: grid;
-     grid-template-columns: 100px 800px;
+     grid-template-columns: 200px 800px;
      grid-template-rows: 50px 50px 800px;
      /* width: max-content; */
+ }
+
+ .search-container {
+     position: relative;
+     display: inline-block;
+     margin: 5px;
+
+ }
+
+ .search-container input[type="text"] {
+     border-radius: 10px;
+     border: none;
+     background-color: #cdeef9;
+     padding-left: 30px;
+     height: 3em;
+     width: 40em;
+     align-items: center;
+     inset: 0;
+     margin: auto;
+
+ }
+
+ .search-container i.fa-magnifying-glass {
+     position: absolute;
+     top: 50%;
+     left: 10px;
+     transform: translateY(-50%);
+     color: rgb(102, 102, 102);
  }
 
  .mail-logo {

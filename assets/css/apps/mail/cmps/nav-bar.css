@@ -1,0 +1,53 @@
+.nav-bar {
+    display: flex;
+    flex-direction: column;
+    height: 400px;
+}
+
+.compose-btn {
+    display: flex;
+    align-items: center;
+    color: rgb(29, 28, 28);
+    width: 10em;
+    height: 3.7em;
+    margin: 20px 0px;
+    border-radius: 15px;
+    border: none;
+    background-color: #cdeef9;
+}
+
+.compose-btn i {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.label {
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    height: 2em;
+    width: 11em;
+    margin-left: 10px;
+}
+
+.labels i {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.label button {
+    border: none;
+    background-color: white;
+    color: rgb(29, 28, 28);
+    margin-right: auto;
+}
+
+.label-text {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.label span {
+    margin-right: 10px;
+}
