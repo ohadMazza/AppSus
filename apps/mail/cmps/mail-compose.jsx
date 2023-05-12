@@ -9,8 +9,8 @@ export function ComposeMail({ isOpen, onClose }) {
         return null;
     }
 
-    function handleSubmit(e) {
-        e.preventDefault();
+    function handleSubmit(ev) {
+        ev.preventDefault();
         // console.log(`To: ${to}\nSubject: ${subject}\nMessage: ${message}`);
         onClose();
     }

@@ -14,18 +14,18 @@ export const mailService = {
     getDefaultFilter,
 }
 
-function query() {
+function query(filterBy = {}) {
     // console.log('filterBy service:', filterBy)
     return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
-            // if (filterBy.txt) {
-            //     const regExp = new RegExp(filterBy.txt, 'i')
-            //     mails = mails.filter(mail => regExp.test(mail.txt))
-            // }
-
-            // if (filterBy.minSpeed) {
-            //     mails = mails.filter(mail => mails.maxSpeed >= filterBy.minSpeed)
-            // }
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                mails = mails.filter(mail => {
+                    return regExp.test(mail.body) ||
+                        regExp.test(mail.from) ||
+                        regExp.test(mail.subject)
+                })
+            }
             return mails
         })
 }

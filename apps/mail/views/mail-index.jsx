@@ -4,22 +4,23 @@ const { Link } = ReactRouterDOM
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/mail-list.jsx"
 import { ComposeMail } from "../cmps/mail-compose.jsx"
+import { MailFilter } from "../cmps/mail-filter.jsx"
 
 
 
 
 export function MailIndex() {
     const [mails, setMails] = useState([])
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
     const [isComposeOpen, setIsComposeOpen] = useState(false)
     console.log(mails)
-    const [filterBy, setFilterBy] = useState()
 
     useEffect(() => {
         loadMails()
-    }, [])
+    }, [filterBy])
 
     function loadMails() {
-        mailService.query().then(mails => setMails(mails))
+        mailService.query(filterBy).then(mails => setMails(mails))
         // carService.query().then(setCars)
     }
 
@@ -30,7 +31,10 @@ export function MailIndex() {
             const updatedMails = mails.filter(mail => mail.id !== mailId)
             setMails(updatedMails)
         })
+    }
 
+    function onSetFilter(filterBy) {
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...filterBy }))
     }
 
     function handleComposeClick() {
@@ -41,9 +45,6 @@ export function MailIndex() {
         setIsComposeOpen(false);
     }
 
-    // function onSetFilter(filterBy) {
-    //     setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...filterBy }))
-    // }
 
     return (
         <section className="mail-index">
@@ -51,10 +52,11 @@ export function MailIndex() {
             <div className="mail-logo">
                 <img src="assets/img/logo/mister-mail-logo.png"></img>
             </div>
-            <div className="search-container">
+            <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+            {/* <div className="search-container">
                 <input type="text" placeholder="Search in mail" />
                 <i className="fa-solid fa-magnifying-glass"></i>
-            </div>
+            </div> */}
 
             <div className="filters">Filters</div>
             <div className="nav-bar">
@@ -88,37 +90,6 @@ export function MailIndex() {
                 <MailList mails={mails} onDeleteMail={onDeleteMail} />
             </section>
             {isComposeOpen && <ComposeMail isOpen={isComposeOpen} onClose={handleComposeClose} />}
-
-            {/* <section>
-                <div class="compose-container">
-                    <div class="compose-header">
-                        <h2>New Message</h2>
-                        <button class="close-btn">&times;</button>
-                    </div>
-                    <form>
-                        <input type="text" placeholder="To" required />
-                        <input type="text" placeholder="Subject" required />
-                        <div class="compose-body">
-                            <div contentEditable="true" class="email-message" placeholder="Message"></div>
-                        </div>
-                        <button class="send-btn">Send</button>
-                    </form>
-                </div>
-            </section> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </section >
     )
 }
