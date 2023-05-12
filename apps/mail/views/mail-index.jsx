@@ -3,36 +3,48 @@ const { Link } = ReactRouterDOM
 
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/mail-list.jsx"
+import { ComposeMail } from "../cmps/mail-compose.jsx"
+import { MailFilter } from "../cmps/mail-filter.jsx"
 
 
 
 
 export function MailIndex() {
     const [mails, setMails] = useState([])
+    const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
+    const [isComposeOpen, setIsComposeOpen] = useState(false)
     console.log(mails)
-    // const [filterBy, setFilterBy] = useState()
 
     useEffect(() => {
         loadMails()
-    }, [])
+    }, [filterBy])
 
     function loadMails() {
-        mailService.query().then(mails => setMails(mails))
+        mailService.query(filterBy).then(mails => setMails(mails))
         // carService.query().then(setCars)
     }
 
-    // function onRemoveMail(mailId) {
-    //     mailService.remove(mailId).then(() => {
-    //         const updatedMails = mails.filter(mail => mail.id !== mailId)
-    //         setCars(updatedMails)
-    //         // showSuccessMsg(`Car (${mailId}) removed!`)
-    //     })
+    function onDeleteMail(mailId) {
+        console.log('remove mail id:', mailId)
 
-    // }
+        mailService.remove(mailId).then(() => {
+            const updatedMails = mails.filter(mail => mail.id !== mailId)
+            setMails(updatedMails)
+        })
+    }
 
-    // function onSetFilter(filterBy) {
-    //     setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...filterBy }))
-    // }
+    function onSetFilter(filterBy) {
+        setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...filterBy }))
+    }
+
+    function handleComposeClick() {
+        setIsComposeOpen(true);
+    }
+
+    function handleComposeClose() {
+        setIsComposeOpen(false);
+    }
+
 
     return (
         <section className="mail-index">
@@ -40,40 +52,45 @@ export function MailIndex() {
             <div className="mail-logo">
                 <img src="assets/img/logo/mister-mail-logo.png"></img>
             </div>
-            <div class="search-container">
-                <i class="fa-solid fa-magnifying-glass"></i>
+            <MailFilter filterBy={filterBy} onSetFilter={onSetFilter} />
+            {/* <div className="search-container">
                 <input type="text" placeholder="Search in mail" />
-            </div>
+                <i className="fa-solid fa-magnifying-glass"></i>
+            </div> */}
 
-            <button className="compose-btn">Compose</button>
             <div className="filters">Filters</div>
-            <div className="labels">
-                <div>
-                    <i class="fa-solid fa-inbox"></i>
-                    <button>Inbox</button>
-                    <span>456</span>
-                </div>   <div>
-                    <i class="fa-regular fa-paper-plane"></i>
-                    <button>Sent</button>
-                    <span>5</span>
-                </div>
-                <div>
-                    <i class="fa-regular fa-file-lines"></i>
-                    <button>Draft</button>
-                    <span>12</span>
-                </div>
-                <div>
-                    <i class="fa-regular fa-trash-can"></i>
-                    <button>Trash</button>
-                    <span>13</span>
+            <div className="nav-bar">
+                <button className="compose-btn" onClick={() => setIsComposeOpen(true)}>
+                    <i className="fa-solid fa-pencil"></i>
+                    Compose</button>
+                <div className="labels">
+                    <div className="label">
+                        <i className="fa-solid fa-inbox"></i>
+                        <button>Inbox</button>
+                        <span>46</span>
+                    </div>
+                    <div className="label">
+                        <i className="fa-regular fa-paper-plane"></i>
+                        <button>Sent</button>
+                        <span>5</span>
+                    </div>
+                    <div className="label">
+                        <i className="fa-regular fa-file-lines"></i>
+                        <button>Draft</button>
+                        <span>12</span>
+                    </div>
+                    <div className="label">
+                        <i className="fa-regular fa-trash-can"></i>
+                        <button>Trash</button>
+                        <span>13</span>
+                    </div>
                 </div>
             </div>
             <section className="mail-list">
-                <MailList mails={mails} />
-
+                <MailList mails={mails} onDeleteMail={onDeleteMail} />
             </section>
-
-        </section>
+            {isComposeOpen && <ComposeMail isOpen={isComposeOpen} onClose={handleComposeClose} />}
+        </section >
     )
 }
 

@@ -11,21 +11,21 @@ export const mailService = {
     remove,
     save,
     // getEmptyCar,
-    // getDefaultFilter,
+    getDefaultFilter,
 }
 
-function query() {
+function query(filterBy = {}) {
     // console.log('filterBy service:', filterBy)
     return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
-            // if (filterBy.txt) {
-            //     const regExp = new RegExp(filterBy.txt, 'i')
-            //     mails = mails.filter(mail => regExp.test(mail.txt))
-            // }
-
-            // if (filterBy.minSpeed) {
-            //     mails = mails.filter(mail => mails.maxSpeed >= filterBy.minSpeed)
-            // }
+            if (filterBy.txt) {
+                const regExp = new RegExp(filterBy.txt, 'i')
+                mails = mails.filter(mail => {
+                    return regExp.test(mail.body) ||
+                        regExp.test(mail.from) ||
+                        regExp.test(mail.subject)
+                })
+            }
             return mails
         })
 }
@@ -36,7 +36,7 @@ function get(mailId) {
 }
 
 function remove(mailId) {
-    return storageService.remove(MAIL_KEY, mailId)
+    return asyncStorageService.remove(MAIL_KEY, mailId)
 }
 
 function save(mail) {
@@ -51,9 +51,9 @@ function save(mail) {
 //     return { id: '', vendor, maxSpeed }
 // }
 
-// function getDefaultFilter() {
-//     return { txt: '', minSpeed: '' }
-// }
+function getDefaultFilter() {
+    return { txt: '' }
+}
 
 function _createMails() {
     let mails = storageService.loadFromStorage(MAIL_KEY)
