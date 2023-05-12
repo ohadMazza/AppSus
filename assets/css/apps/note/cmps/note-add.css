@@ -1,0 +1,74 @@
+.note {
+    width: 200px;
+    background-color: white;
+    margin: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: height 0.5s ease;
+    overflow: hidden;
+}
+
+.note-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.note-icons {
+    display: flex;
+    gap: 10px;
+}
+
+.note-icons>svg {
+    font-size: 16px;
+    color: gray;
+    cursor: pointer;
+}
+
+.note-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    /* transition: height 0.5s ease;
+    height: 50px; */
+    overflow: hidden;
+}
+
+.hidden {
+    height: 0;
+    opacity: 0;
+
+}
+
+.expanded {
+    height: auto;
+    opacity: 1;
+    transition: height 0.5s ease;
+
+}
+
+
+input[type="text"],
+textarea {
+    width: 100%;
+    border: none;
+    outline: none;
+    resize: none;
+    background-color: transparent;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    padding: 10px;
+}
+
+input[type="text"] {
+    font-weight: bold;
+}
+
+textarea {
+    height: 100%;
+    line-height: 1.5;
+}

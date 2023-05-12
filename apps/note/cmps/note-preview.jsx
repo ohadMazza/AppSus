@@ -1,9 +1,10 @@
-export function NotePreview({ note }) {
-
+export function NotePreview({ note, onRemoveNote }) {
     return (
-        <article className="note-preview">
-            <h3>text{note.info.txt}</h3>
-            <h6>created at {note.createdAt}</h6>
-        </article>
+        <section className='note-preview'>
+            <h3>{note.info.title}</h3>
+            <p>{note.info.txt}</p>
+            <button onClick={() => onRemoveNote(note.id)}>remove</button>
+        </section>
     )
 }
+
