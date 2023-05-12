@@ -5,8 +5,12 @@
 
  .mail-index {
      display: grid;
-     grid-template-columns: 200px 800px;
-     grid-template-rows: 50px 50px 800px;
+     grid-template-columns: 200px 1fr;
+     grid-template-rows: 50px 50px auto;
+     margin-right: 20px;
+     margin-left: 10px;
+
+
      /* width: max-content; */
  }
 
@@ -18,7 +22,7 @@
  }
 
  .search-container input[type="text"] {
-     border-radius: 10px;
+     border-radius: 15px;
      border: none;
      background-color: #cdeef9;
      padding-left: 30px;
@@ -32,7 +36,7 @@
 
  .search-container i.fa-magnifying-glass {
      position: absolute;
-     top: 50%;
+     top: 58%;
      left: 10px;
      transform: translateY(-50%);
      color: rgb(102, 102, 102);
@@ -65,4 +69,85 @@
 
  .labels {
      grid-area: 3/ 1 / 4 / 2;
+ }
+
+
+
+
+
+
+
+
+ /* /////////////////////////////////////// */
+ .compose-container {
+     display: "";
+     position: fixed;
+     bottom: 0%;
+     right: 0%;
+     transform: translate(-15%, -0%);
+     background-color: #fff;
+     padding: 1rem;
+     width: 600px;
+     border-radius: 8px;
+     box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
+     font-family: Arial, sans-serif;
+ }
+
+ .compose-header {
+     display: flex;
+     justify-content: space-between;
+     align-items: center;
+     margin-bottom: 1rem;
+ }
+
+ .compose-header h2 {
+     font-size: 1.2rem;
+     margin: 0;
+ }
+
+ .close-btn {
+     background-color: transparent;
+     border: none;
+     font-size: 1.5rem;
+     cursor: pointer;
+ }
+
+ form {
+     display: flex;
+     flex-direction: column;
+ }
+
+ input[type="text"] {
+     border: none;
+     border-bottom: 1px solid #ccc;
+     margin-bottom: 1rem;
+     padding: 0.5rem;
+     font-size: 1rem;
+ }
+
+ .compose-body {
+     border: none;
+     border-bottom: 1px solid #ccc;
+     margin-bottom: 1rem;
+     padding: 0.5rem;
+     font-size: 1rem;
+ }
+
+ .compose-body .email-message {
+     min-height: 300px;
+     outline: none;
+ }
+
+ .send-btn {
+     background-color: #007bff;
+     color: #fff;
+     border: none;
+     padding: 0.5rem 1rem;
+     border-radius: 8px;
+     font-size: 1rem;
+     cursor: pointer;
+ }
+
+ .send-btn:hover {
+     background-color: #0069d9;
  }

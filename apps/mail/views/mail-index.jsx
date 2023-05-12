@@ -3,12 +3,14 @@ const { Link } = ReactRouterDOM
 
 import { mailService } from "../services/mail.service.js"
 import { MailList } from "../cmps/mail-list.jsx"
+import { ComposeMail } from "../cmps/mail-compose.jsx"
 
 
 
 
 export function MailIndex() {
     const [mails, setMails] = useState([])
+    const [isComposeOpen, setIsComposeOpen] = useState(false)
     console.log(mails)
     const [filterBy, setFilterBy] = useState()
 
@@ -31,6 +33,14 @@ export function MailIndex() {
 
     }
 
+    function handleComposeClick() {
+        setIsComposeOpen(true);
+    }
+
+    function handleComposeClose() {
+        setIsComposeOpen(false);
+    }
+
     // function onSetFilter(filterBy) {
     //     setFilterBy(prevFilterBy => ({ ...prevFilterBy, ...filterBy }))
     // }
@@ -48,7 +58,7 @@ export function MailIndex() {
 
             <div className="filters">Filters</div>
             <div className="nav-bar">
-                <button className="compose-btn">
+                <button className="compose-btn" onClick={() => setIsComposeOpen(true)}>
                     <i className="fa-solid fa-pencil"></i>
                     Compose</button>
                 <div className="labels">
@@ -77,7 +87,39 @@ export function MailIndex() {
             <section className="mail-list">
                 <MailList mails={mails} onDeleteMail={onDeleteMail} />
             </section>
-        </section>
+            {isComposeOpen && <ComposeMail isOpen={isComposeOpen} onClose={handleComposeClose} />}
+
+            {/* <section>
+                <div class="compose-container">
+                    <div class="compose-header">
+                        <h2>New Message</h2>
+                        <button class="close-btn">&times;</button>
+                    </div>
+                    <form>
+                        <input type="text" placeholder="To" required />
+                        <input type="text" placeholder="Subject" required />
+                        <div class="compose-body">
+                            <div contentEditable="true" class="email-message" placeholder="Message"></div>
+                        </div>
+                        <button class="send-btn">Send</button>
+                    </form>
+                </div>
+            </section> */}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </section >
     )
 }
 

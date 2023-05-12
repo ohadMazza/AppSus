@@ -30,10 +30,11 @@ export function MailPreview({ mail, onDeleteMail }) {
 
 
     return (
+
         <tr className="border-bottom" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-            <td><i className="fa-regular fa-star"></i></td>
-            <td>{mail.from}</td>
-            <td> {mail.subject} </td>
+            <td className="tr-icon"><i className="fa-regular fa-star"></i></td>
+            <td className="tr-mail-adress">{mail.from}</td>
+            <td className="tr-mail-subject"> {mail.subject} </td>
             {hovered ? (
                 <td>
                     <i className="fa-regular fa-envelope-open"></i>
@@ -43,7 +44,7 @@ export function MailPreview({ mail, onDeleteMail }) {
                     ></i>
                 </td>
             ) : (
-                <td>{sentAt}</td>
+                <td className="tr-mail-date">{sentAt}</td>
             )}
         </tr>
     )
