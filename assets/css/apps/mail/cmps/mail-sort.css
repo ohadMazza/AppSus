@@ -1,0 +1,25 @@
+.sort-section {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+
+}
+
+.sort-section-btns {
+    margin-left: 10px;
+}
+
+.sort-btn {
+    background-color: white;
+    color: black;
+    border: 1px solid black;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 15px;
+
+}
+
+.sort-btn.sorted {
+    background-color: black;
+    color: white;
+}
