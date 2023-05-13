@@ -18,9 +18,11 @@
 
 /* Cmps */
 
+
 @import './cmps/user-msg.css';
 @import './cmps/app-header.css';
 @import './apps/mail/cmps/mail-preview.css';
 @import './apps/mail/cmps/nav-bar.css';
 @import './apps/mail/cmps/mail-list.css';
-@import './apps/mail/cmps/mail-sort.css';
+
+/* @import './apps/mail/cmps/mail-list.css'; */

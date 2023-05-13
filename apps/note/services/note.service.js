@@ -37,11 +37,13 @@ function get(noteId) {
 }
 
 
-function addNote(note) {
+function addNote(info) {
+    let note = _createNote(info)
     let notes = _loadNotesFromStorage()
-    note = [...notes, note]
+    notes = [...notes, note]
     _saveNotesToStorage(notes)
-    return note
+    console.log(notes)
+    return notes
 }
 
 function remove(noteId) {
@@ -75,10 +77,12 @@ function getEmptyNote() {
             backgroundColor: '#00d'
         },
         info: {
+            title: '',
             txt: ''
         }
     }
 }
+
 
 
 // function DynamicCmp(props) {
@@ -101,19 +105,18 @@ function _createNotes() {
     let notes = storageService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = []
-        notes.push(_createNote('Fullstack Me Baby!'))
-        // notes.push(_createNote())
-        // notes.push(_createNote())
-        // notes.push(_createNote())
-        // notes.push(_createNote())
+        // notes.push(_createNote('title me', 'Fullstack Me Baby1!'))
+        // notes.push(_createNote('title them', 'Fullstack Me Baby2!'))
+        // notes.push(_createNote('title you', 'Fullstack Me Baby3!'))
         storageService.saveToStorage(NOTE_KEY, notes)
     }
 }
 
-function _createNote(txt) {
-    let note = getEmptyNote(txt)
+function _createNote(info) {
+    let note = getEmptyNote()
     note.id = utilService.makeId()
-    console.log(note)
+    note.info.title = info.title
+    note.info.txt = info.txt
     return note
 }
 
