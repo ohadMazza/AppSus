@@ -105,9 +105,9 @@ function _createNotes() {
     let notes = storageService.loadFromStorage(NOTE_KEY)
     if (!notes || !notes.length) {
         notes = []
-        // notes.push(_createNote('title me', 'Fullstack Me Baby1!'))
-        // notes.push(_createNote('title them', 'Fullstack Me Baby2!'))
-        // notes.push(_createNote('title you', 'Fullstack Me Baby3!'))
+        notes.push(_createNote({ title: 'title me1', txt: 'Fullstack Me Baby1!' }))
+        notes.push(_createNote({ title: 'title me2', txt: 'Fullstack Me Baby2!' }))
+        notes.push(_createNote({ title: 'title me3', txt: 'Fullstack Me Baby3!' }))
         storageService.saveToStorage(NOTE_KEY, notes)
     }
 }

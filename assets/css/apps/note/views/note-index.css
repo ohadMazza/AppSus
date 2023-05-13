@@ -1,1 +1,11 @@
  /* note index */
+ * {
+     margin: 0;
+     box-sizing: border-box;
+ }
+
+ .main-layout {
+     display: grid;
+     grid-auto-columns: auto;
+     align-items: center;
+ }

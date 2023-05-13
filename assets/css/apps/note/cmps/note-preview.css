@@ -1,5 +1,5 @@
+/* note-preview */
 .note {
-    display: grid;
     width: 200px;
     background-color: white;
     margin: 10px;
@@ -8,8 +8,6 @@
     cursor: pointer;
     transition: height 0.5s ease;
     overflow: hidden;
-    align-items: center;
-
 }
 
 .note-header {
@@ -55,7 +53,7 @@
 }
 
 
-input[type="text"],
+.note-preview[type="text"],
 textarea {
     width: 100%;
     border: none;
@@ -67,7 +65,7 @@ textarea {
     padding: 10px;
 }
 
-input[type="text"] {
+.note-header[type="text"] {
     font-weight: bold;
 }
 

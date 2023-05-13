@@ -19,6 +19,7 @@ export function NoteIndex() {
         noteService.addNote(info)
         loadNotes()
 
+
     }
 
     function loadNotes() {
@@ -32,12 +33,19 @@ export function NoteIndex() {
         })
 
     }
+    function onSaveNote(noteId) {
+        noteService.save(noteId).then(() => {
+            loadNotes()
+        })
+
+    }
+
 
 
     return (
         <section className="note-index full main-layout">
             <NoteAdd onAddNote={onAddNote} />
-            <NoteList notes={notes} onRemoveNote={onRemoveNote} />
+            <NoteList notes={notes} onRemoveNote={onRemoveNote} onSaveNote={onSaveNote} />
         </section>
     )
 }
