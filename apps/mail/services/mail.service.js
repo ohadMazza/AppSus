@@ -14,7 +14,8 @@ export const mailService = {
     getDefaultFilter,
 }
 
-function query(filterBy = {}) {
+function query(filterBy = {}, status) {
+    console.log('status in query ', status)
     // console.log('filterBy service:', filterBy)
     return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
@@ -26,6 +27,8 @@ function query(filterBy = {}) {
                         regExp.test(mail.subject)
                 })
             }
+            mails = mails.filter(mail => mail.status === status)
+
             return mails
         })
 }
@@ -52,7 +55,7 @@ function save(mail) {
 // }
 
 function getDefaultFilter() {
-    return { txt: '' }
+    return { txt: '' } //  note = {txt, content}  noteid={}
 }
 
 function _createMails() {
@@ -63,7 +66,7 @@ function _createMails() {
                 id: utilService.makeId(),
                 subject: 'Spring Sale is Here',
                 body: 'Save 40% on amazing products! \nSpring has finally arrived with plenty of great deals! Save 40% on selected instruments, loops, SpectraLayers, Cubasis and more!',
-                isRead: false,
+                isRead: true,
                 sentAt: 1683785111163,
                 removedAt: null,
                 from: 'info@news.steinberg.net',
@@ -74,7 +77,7 @@ function _createMails() {
                 id: utilService.makeId(),
                 subject: 'You sent an automatic payment to East West Communications, Inc.',
                 body: 'Thank you for your payment to East West Communications, Inc.\nHere are the details about your automatic payment for EastWest ComposerCloud Subscription.',
-                isRead: false,
+                isRead: true,
                 sentAt: 1683684049595,
                 removedAt: null,
                 from: 'service@paypal.co.il',
@@ -100,6 +103,26 @@ function _createMails() {
                 from: 'service@ilok.com',
                 to: 'user@appsus.com',
                 status: 'inbox'
+            }, {
+                id: utilService.makeId(),
+                subject: 'CorOS 2.0.3 is now available',
+                body: 'CorOS 2.0.3 is now available! Download it via Settings > Device Options > Device Updates on your Quad Cortex once connected to Wi-Fi. We recommend that you create a backup before updating your firmware.This is a high priority security update and we recommend you update as soon as possible. If you haven`t already, please read our recent statement regarding a security vulnerability found on Quad Cortex.',
+                isRead: true,
+                sentAt: 1662584049595,
+                removedAt: null,
+                from: '<network@neuraldsp.com',
+                to: 'user@appsus.com',
+                status: 'trash'
+            }, {
+                id: utilService.makeId(),
+                subject: 'Help us protect your account',
+                body: 'Hi ohad, It`s been more than a year since you last updated your personal info.Keeping your personal info up to date can help better protect your account.Sound like a good idea? All you have to do is go to eBay and take a look at your personal info to confirm that it`s still correct. If you updated your personal info recently, please ignore this reminder.',
+                isRead: true,
+                sentAt: 1662584049595,
+                removedAt: 1664584049595,
+                from: 'ebay@ebay.com',
+                to: 'user@appsus.com',
+                status: 'trash'
             },
         ]
         storageService.saveToStorage(MAIL_KEY, mails)

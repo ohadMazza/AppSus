@@ -1,4 +1,4 @@
-import { mailService } from "../services/mail.service.js"
+// import { mailService } from "../services/mail.service.js"
 const { useState, useEffect } = React
 
 export function MailFilter({ filterBy, onSetFilter }) {
@@ -30,5 +30,6 @@ export function MailFilter({ filterBy, onSetFilter }) {
         </div>
     )
 }
+
 
 

@@ -23,8 +23,7 @@ tr .tr-mail-adress {
     width: 220px;
 }
 
-
 tr .tr-mail-date {
-    padding-left: 40px;
-    width: 60px;
+    width: 70px;
+    text-align: right;
 }
