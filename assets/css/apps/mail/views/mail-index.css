@@ -71,6 +71,11 @@
      grid-area: 2/ 2 / 3 / 3;
  }
 
+ .email {
+     grid-area: 3 / 2 / 4 / 3;
+ }
+
+
  .mail-list {
      grid-area: 3 / 2 / 4 / 3;
  }

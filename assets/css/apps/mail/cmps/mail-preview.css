@@ -27,3 +27,8 @@ tr .tr-mail-date {
     width: 70px;
     text-align: right;
 }
+
+.read-mail {
+    background-color: #e8edee;
+
+}

@@ -1,4 +1,6 @@
 .nav-bar {
+    margin-top: 40px;
+    position: fixed;
     display: flex;
     flex-direction: column;
     height: 400px;
