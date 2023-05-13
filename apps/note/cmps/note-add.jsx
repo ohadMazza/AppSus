@@ -1,55 +1,75 @@
-const { useState, useEffect } = React
+const { useEffect, useState, useRef } = React
 
-import { noteService } from '../services/note.service.js'
+import { noteService } from "../services/note.service.js"
 
-export function NoteAdd({ note, onRemoveNote, onAddNote }) {
+export function NoteAdd({ onSaveNote }) {
 
-    const [createdAt, setCreatedAt] = useState(new Date().toLocaleTimeString())
-    const [info, setInfo] = useState({ title: "", txt: "" })
+    const [noteToEdit, setNoteToEdit] = useState(noteService.getEmptyNote())
+    const inputRef = useRef()
     const [expanded, setExpanded] = useState(false)
-    const onSubmitNote = () => {
-        onAddNote(info)
+
+    useEffect(() => {
+        console.log(noteToEdit)
+
+    }, [noteToEdit])
+
+    function handleChange({ target }) {
+        const field = target.name
+        const value = target.type === 'number' ? (+target.value || '') : target.value
+        setNoteToEdit(prevNote => ({ ...prevNote, info: { ...prevNote.info, [field]: value } }))
+    }
+
+    function onSubmit(ev) {
+        ev.preventDefault()
+        if (!noteToEdit.info.title || !noteToEdit.info.txt) {
+            inputRef.current.focus()
+            return
+        }
+        onSaveNote(noteToEdit)
+
+
     }
 
     const handleExpand = (isExpended) => {
-        if (isExpended || (!info.title && !info.txt)) { setExpanded(isExpended) }
+        if (isExpended || (!noteToEdit.title && !noteToEdit.txt)) { setExpanded(isExpended) }
 
     }
 
+    // const { note } = noteToEdit
 
     return (
         <div className="note" >
-            <div className="note-header">
-
-            </div>
             <form onFocus={() => handleExpand(true)}
                 onBlur={() => handleExpand(false)}
-                onSubmit={onSubmitNote}
+                onSubmit={onSubmit}
                 className="note-content">
-                <input
-                    type="text"
-                    placeholder="Title"
-                    value={info.title}
-                    onChange={(e) => setInfo({ ...info, title: e.target.value })}
-                />
-                <section className={expanded ? "note-body expanded" : "note-body hidden"}>
+                <div className="note-header">
+
+                    <label htmlFor="title"></label>
+                    <input
+                        ref={inputRef}
+                        onChange={handleChange}
+                        name="title"
+                        id="title"
+                        type="text"
+                        placeholder="Title"
+                        value={noteToEdit.title}
+
+                    />
+                </div>
+                <div className={expanded ? "note-body expanded" : "note-body hidden"}>
+                    <label htmlFor="txt"></label>
                     <textarea
-                        // className={expanded ? "note-body expanded" : "note-body hidden"}
+                        onChange={handleChange}
+                        type="text"
+                        name="txt"
+                        id="txt"
                         placeholder="Take a note..."
-                        value={info.txt}
-                        onChange={(e) => setInfo({ ...info, txt: e.target.value })}
+                        value={noteToEdit.txt}
+
                     ></textarea>
-                    <span
-                    // className={expanded ? " expanded" : " hidden"}
-                    >
-                        {createdAt}
-                    </span>
-                    <button
-                    // className={expanded ? " expanded" : " hidden"}
-                    >
-                        add
-                    </button>
-                </section>
+                    <button> Add</button>
+                </div>
             </form>
             <div className="note-icons">
                 <i className="fa-solid fa-font"></i>
@@ -58,7 +78,10 @@ export function NoteAdd({ note, onRemoveNote, onAddNote }) {
                 <i className="fa-solid fa-volume"></i>
                 <i className="fa-solid fa-list"></i>
 
-            </div>
+
+            </div >
         </div>
     )
+
+
 }

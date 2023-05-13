@@ -8,19 +8,16 @@ import { NoteAdd } from "../cmps/note-add.jsx"
 
 export function NoteIndex() {
     const [notes, setNotes] = useState([])
-    console.log(notes)
+
+
+    // console.log(notes)
 
     useEffect(() => {
         loadNotes()
 
     }, [])
 
-    const onAddNote = (info) => {
-        noteService.addNote(info)
-        loadNotes()
 
-
-    }
 
     function loadNotes() {
         noteService.query().then(setNotes)
@@ -33,8 +30,8 @@ export function NoteIndex() {
         })
 
     }
-    function onSaveNote(noteId) {
-        noteService.save(noteId).then(() => {
+    function onSaveNote(note) {
+        noteService.save(note).then(() => {
             loadNotes()
         })
 
@@ -42,9 +39,10 @@ export function NoteIndex() {
 
 
 
+
     return (
         <section className="note-index full main-layout">
-            <NoteAdd onAddNote={onAddNote} />
+            <NoteAdd onSaveNote={onSaveNote} />
             <NoteList notes={notes} onRemoveNote={onRemoveNote} onSaveNote={onSaveNote} />
         </section>
     )

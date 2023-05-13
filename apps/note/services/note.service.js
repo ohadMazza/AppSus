@@ -12,7 +12,6 @@ export const noteService = {
     remove,
     save,
     getEmptyNote,
-    addNote,
     // getDefaultFilter,
     // getNextNoteId
 }
@@ -36,16 +35,6 @@ function get(noteId) {
     return asyncStorageService.get(NOTE_KEY, noteId)
 }
 
-
-function addNote(info) {
-    let note = _createNote(info)
-    let notes = _loadNotesFromStorage()
-    notes = [...notes, note]
-    _saveNotesToStorage(notes)
-    console.log(notes)
-    return notes
-}
-
 function remove(noteId) {
     return asyncStorageService.remove(NOTE_KEY, noteId)
 }
@@ -58,18 +47,9 @@ function save(note) {
     }
 }
 
-// function getNextNoteId(NoteId) {
-//     return storageService.query(NOTE_KEY)
-//         .then((notes) => {
-//             let noteIdx = notes.findIndex(note => note.id === noteId)
-//             if(noteIdx === notes.length - 1) noteIdx = -1
-//             return notes[noteIdx + 1].id
-//         })
-// }
-
 function getEmptyNote() {
     return {
-        id: '',
+
         createdAt: 0,
         type: 'NoteTxt',
         isPinned: false,
@@ -82,24 +62,6 @@ function getEmptyNote() {
         }
     }
 }
-
-
-
-// function DynamicCmp(props) {
-//     switch (props.cmpType) {
-//         case 'color':
-//             return <ColorInput {...props} />
-//         case 'fontSize':
-//             return <FontsizeInput {...props} />
-//     }
-// }
-
-// function getDefaultFilter(searchParams = { get: () => { } }) {
-//     return {
-//         txt: searchParams.get('txt') || '',
-//         type: searchParams.get('type') || ''
-//     }
-// }
 
 function _createNotes() {
     let notes = storageService.loadFromStorage(NOTE_KEY)
