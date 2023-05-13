@@ -1,7 +1,8 @@
-// import { mailService } from "../services/mail.service.js"
+import { mailService } from "../services/mail.service.js"
 const { useState, useEffect } = React
 
 export function MailStatus({ setStatus, setSelectedMail }) {
+
     return (
         <div className="labels">
             <div className="label">

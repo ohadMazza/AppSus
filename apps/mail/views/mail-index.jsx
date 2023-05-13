@@ -10,31 +10,26 @@ import { MailSort } from "../cmps/mail-sort.jsx"
 import { MailDetails } from "../cmps/mail-details.jsx"
 
 
-
-
 export function MailIndex() {
     const [selectedMail, setSelectedMail] = useState(null)
     const [mails, setMails] = useState([])
     const [status, setStatus] = useState('inbox')
-    // const [status, setStatus] = useState()
     const [filterBy, setFilterBy] = useState(mailService.getDefaultFilter())
     const [isComposeOpen, setIsComposeOpen] = useState(false)
     const [sortOption, setSortOption] = useState('date')
     const [sortOrder, setSortOrder] = useState(1);
-
-    console.log(mails)
-    // console.log('status in mailindex is ', status)
-    // console.log('sort in mailindex is ', sortOption)
+    // const [inboxCount, setinboxCount] = useState();
 
     useEffect(() => {
         loadMails()
+
     }, [filterBy, status, sortOption, sortOrder])
 
+
+
+
     function loadMails() {
-        // console.log('status in load mails ', status)
         mailService.query(filterBy, status).then((mails) => {
-            // Sort the mails based on the current sort option and order
-            // const sortedMails = [...mails];
             if (sortOption === 'date') {
                 mails.sort((a, b) => (b.sentAt - a.sentAt) * sortOrder);
             } else if (sortOption === 'from') {
@@ -45,9 +40,6 @@ export function MailIndex() {
     }
 
     function onDeleteMail(mailId) {
-        // console.log('remove mail id:', mailId)
-
-        // mailService.removeToTrash(mailId)
 
         mailService.remove(mailId).then(() => {
             const updatedMails = mails.filter(mail => mail.id !== mailId)
@@ -67,13 +59,12 @@ export function MailIndex() {
         setIsComposeOpen(true);
     }
 
-    function handleComposeClose() {
+    function onComposeClose() {
         setIsComposeOpen(false);
     }
 
     function onSelectMail(mail) {
         setSelectedMail(mail)
-        console.log(mail)
     }
 
 
@@ -94,7 +85,6 @@ export function MailIndex() {
             {selectedMail && <MailDetails mail={selectedMail} />}
 
 
-            {/* <div className="sort-section">sorts</div> */}
             <div className="nav-bar">
                 <button className="compose-btn" onClick={() => setIsComposeOpen(true)}>
                     <i className="fa-solid fa-pencil"></i>
@@ -102,7 +92,7 @@ export function MailIndex() {
                 <MailStatus setStatus={setStatus} setSelectedMail={setSelectedMail} />
             </div>
 
-            {isComposeOpen && <ComposeMail isOpen={isComposeOpen} onClose={handleComposeClose} />}
+            {isComposeOpen && <ComposeMail isOpen={isComposeOpen} onClose={onComposeClose} />}
         </section >
     )
 }

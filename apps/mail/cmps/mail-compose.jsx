@@ -1,20 +1,31 @@
-import { useState } from 'react';
+import { mailService } from "../services/mail.service.js"
+const { useEffect, useState } = React
+
 
 export function ComposeMail({ isOpen, onClose }) {
-    // const [to, setTo] = useState('');
-    // const [subject, setSubject] = useState('');
-    // const [message, setMessage] = useState('');
+    const [mailToCompose, setMailToCompose] = useState(mailService.getEmptyMail())
 
     if (!isOpen) {
         return null;
     }
 
-    function handleSubmit(ev) {
-        ev.preventDefault();
-        // console.log(`To: ${to}\nSubject: ${subject}\nMessage: ${message}`);
-        onClose();
+    function handleTxtChange({ target }) {
+        const field = target.name
+        const value = target.value
+        setMailToCompose(prevMail => ({ ...prevMail, [field]: value }))
     }
 
+    function onSentMail(ev) {
+        console.log(mailToCompose)
+        ev.preventDefault();
+        mailService.save(mailToCompose)
+            .then(() => {
+                onClose();
+            })
+
+    }
+
+    const { subject, body, to } = mailToCompose
     return (
         <section>
             <div className="compose-container">
@@ -24,28 +35,31 @@ export function ComposeMail({ isOpen, onClose }) {
                         &times;
                     </button>
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={onSentMail}>
                     <input
+                        onChange={handleTxtChange}
+                        name="to"
                         type="text"
                         placeholder="To"
-                        // value={to}
-                        // onChange={(e) => setTo(e.target.value)}
+                        value={to}
                         required
                     />
                     <input
+                        onChange={handleTxtChange}
+                        name="subject"
                         type="text"
                         placeholder="Subject"
-                        // value={subject}
-                        // onChange={(e) => setSubject(e.target.value)}
+                        value={subject}
                         required
                     />
                     <div className="compose-body">
                         <div
+                            name="body"
                             contentEditable="true"
                             className="email-message"
                             placeholder="Message"
-                        // value={message}
-                        // onChange={(e) => setMessage(e.target.value)}
+                            value={body}
+                            onChange={handleTxtChange}
                         />
                     </div>
                     <button type="submit" className="send-btn">
@@ -54,5 +68,5 @@ export function ComposeMail({ isOpen, onClose }) {
                 </form>
             </div>
         </section>
-    );
+    )
 }

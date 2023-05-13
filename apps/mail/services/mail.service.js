@@ -10,13 +10,11 @@ export const mailService = {
     get,
     remove,
     save,
-    // getEmptyCar,
+    getEmptyMail,
     getDefaultFilter,
 }
 
 function query(filterBy = {}, status) {
-    console.log('status in query ', status)
-    // console.log('filterBy service:', filterBy)
     return asyncStorageService.query(MAIL_KEY)
         .then(mails => {
             if (filterBy.txt) {
@@ -27,15 +25,17 @@ function query(filterBy = {}, status) {
                         regExp.test(mail.subject)
                 })
             }
-            mails = mails.filter(mail => mail.status === status)
 
+            mails = mails.filter(mail => mail.status === status)
             return mails
         })
 }
 
+
+
+
 function get(mailId) {
     return storageService.get(MAIL_KEY, mailId)
-    // return axios.get(CAR_KEY, carId)
 }
 
 function remove(mailId) {
@@ -44,18 +44,27 @@ function remove(mailId) {
 
 function save(mail) {
     if (mail.id) {
-        return storageService.put(MAIL_KEY, mail)
+        return asyncStorageService.put(MAIL_KEY, mail)
     } else {
-        return storageService.post(MAIL_KEY, mail)
+        return asyncStorageService.post(MAIL_KEY, mail)
     }
 }
 
-// function getEmptyCar(vendor = '', maxSpeed = '') {
-//     return { id: '', vendor, maxSpeed }
-// }
+function getEmptyMail(subject = '', body = '', to = '') {
+    return {
+        id: '',
+        subject,
+        body,
+        isRead: null,
+        sentAt: Date.now(),
+        from: 'user@appsus.com',
+        to,
+        status: 'sent'
+    }
+}
 
 function getDefaultFilter() {
-    return { txt: '' } //  note = {txt, content}  noteid={}
+    return { txt: '' }
 }
 
 function _createMails() {
